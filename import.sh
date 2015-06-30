@@ -37,4 +37,4 @@ rm -rf "/tmp/aurimport/$name"
 cd "$OLDDIR"
 
 ## The PKGBUILD repo is added in a git subtree of this repo.
-git subtree add -P $name ssh://aur@aur4.archlinux.org/${name}.git master
+git subtree add -P ${name} ssh://aur@aur4.archlinux.org/${name}.git master
