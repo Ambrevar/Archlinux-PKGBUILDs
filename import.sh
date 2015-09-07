@@ -30,11 +30,12 @@ mksrcinfo
 [ $? -ne 0 ] && exit
 git add * .SRCINFO
 git commit -a -m 'Init'
-git push ssh://aur@aur4.archlinux.org/${name}.git
+git push
 [ $? -ne 0 ] && exit
 rm -rf "/tmp/aurimport/$name"
 
 cd "$OLDDIR"
 
 ## The PKGBUILD repo is added in a git subtree of this repo.
+## We retrieve it from the AUR to make sure the above step worked.
 git subtree add -P ${name} ssh://aur@aur4.archlinux.org/${name}.git master
