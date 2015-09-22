@@ -1,0 +1,5 @@
+#compdef fims
+
+local expl
+
+_path_files -W /usr/lib/fims
