@@ -1,0 +1,40 @@
+# Maintainer: Pierre Neidhardt <ambrevar@gmail.com>
+
+pkgname=freds-imagemagick-scripts
+pkgver=2015.09.09
+pkgrel=1
+pkgdesc="A control-point-based perspective rectification tool"
+arch=('i686' 'x86_64')
+url="http://www.fmwconcepts.com/imagemagick/"
+license=('Custom')
+depends=('imagemagick>=6.3.5.0' 'bc')
+source=(fims.sh)
+sha1sums=('f479a930d40dd475b765c6fd092ba604eca2aa0a')
+
+pkgver() {
+	buffer="$(curl -q -sL http://www.fmwconcepts.com/imagemagick/ | awk '/<p>Latest Updates:<\/p>/ {getline; getline; print $2 " " $3 " " $4;exit}')"
+	date -d "$buffer" '+%Y.%m.%d'
+}
+
+build() {
+	cd "$srcdir"
+	mkdir -p scripts
+	cd scripts
+	buffer="$(curl -q -sL http://www.fmwconcepts.com/imagemagick/)"
+	for i in $(echo "$buffer" | awk '/<meta name="keywords"/ {gsub("[\",>]","");for(i=12;i<=NF;i++)print $i;exit}' ); do
+		## We do not retrieve existing scripts. This will speedup the build process
+		## in case it was aborted in the middle. Remove the 'if' to force retrieval.
+		if [ ! -f "$i" ]; then
+			echo "==> $i"
+			curl -q -sL -o "$i" "http://www.fmwconcepts.com/imagemagick/$i/$i"
+		fi
+	done
+}
+
+package() {
+	cd "$srcdir"
+	mkdir -p "$pkgdir/usr/bin"
+	install -m755 fims.sh "$pkgdir/usr/bin/fims"
+	mkdir -p "$pkgdir/usr/lib/fims"
+	install -m755 scripts/* "$pkgdir/usr/lib/fims"
+}
