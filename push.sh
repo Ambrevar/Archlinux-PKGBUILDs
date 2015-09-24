@@ -13,7 +13,7 @@ pkg="${1##*/}"
 [ ! -d "$pkg" ] && exit
 cd "$pkg"
 mksrcinfo || exit
-if [ $(git status --porcelain | grep -ce "^?? $pkg") -ne 0 ]; then
+if [ $(git status --porcelain | grep -cE "^?? $pkg") -ne 0 ]; then
 	echo >&2 "$1 has staged changes."
 	exit
 fi
