@@ -2,19 +2,19 @@
 
 pkgname=freds-imagemagick-scripts
 pkgver=2015.09.09
-pkgrel=2
+pkgrel=1
 pkgdesc="A control-point-based perspective rectification tool"
-arch=('i686' 'x86_64')
+arch=("i686" "x86_64")
 url="http://www.fmwconcepts.com/imagemagick/"
-license=('Custom')
-depends=('imagemagick>=6.3.5.0' 'bc')
+license=("custom")
+depends=("bc" "imagemagick>=6.3.5.0")
 source=(fims.sh _fims)
-sha1sums=('f479a930d40dd475b765c6fd092ba604eca2aa0a'
-          'fc0d8e4d164c2e2318c317db7eb37c0030514df3')
+sha1sums=("f479a930d40dd475b765c6fd092ba604eca2aa0a"
+	"fc0d8e4d164c2e2318c317db7eb37c0030514df3")
 
 pkgver() {
 	buffer="$(curl -q -sL http://www.fmwconcepts.com/imagemagick/ | awk '/<p>Latest Updates:<\/p>/ {getline; getline; print $2 " " $3 " " $4;exit}')"
-	date -d "$buffer" '+%Y.%m.%d'
+	date -d "$buffer" "+%Y.%m.%d"
 }
 
 build() {
@@ -34,10 +34,8 @@ build() {
 
 package() {
 	cd "$srcdir"
-	install -dm 755 "$pkgdir"/usr/bin
-	install -m 755 fims.sh "$pkgdir"/usr/bin/fims
-	install -dm 755 "$pkgdir"/usr/share/zsh/site-functions
-	install -m 644 _fims "$pkgdir"/usr/share/zsh/site-functions
-	install -dm 755 "$pkgdir"/usr/lib/fims
-	install -m 755 scripts/* "$pkgdir"/usr/lib/fims
+	install -Dm755 fims.sh "$pkgdir/usr/bin/fims"
+	install -Dm644 _fims "$pkgdir/usr/share/zsh/site-functions/_fims"
+	install -dm755 "$pkgdir/usr/lib/fims/"
+	install -m755 scripts/* "$pkgdir/usr/lib/fims/"
 }
