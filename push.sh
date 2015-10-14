@@ -10,9 +10,14 @@ EOF
 fi	
 
 for i; do
-	pkg="${i##*/}"
+	pkg="${i%/}"
+	pkg="${pkg##*/}"
 	echo "==> $pkg"
 	[ ! -d "$pkg" ] && continue
+	if [ ! -f "$pkg/.SRCINFO" ]; then
+		echo >&2 ".SRCINFO not found. Skipping."
+		continue
+	fi
 	cd "$pkg"
 	mksrcinfo || continue
 	if [ -n "$(git status --porcelain .)" ]; then
