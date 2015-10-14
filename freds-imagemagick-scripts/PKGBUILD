@@ -8,7 +8,7 @@ arch=("i686" "x86_64")
 url="http://www.fmwconcepts.com/imagemagick/"
 license=("custom")
 depends=("bc" "imagemagick>=6.3.5.0")
-source=(fims.sh _fims)
+source=("fims.sh" "_fims")
 sha1sums=("f479a930d40dd475b765c6fd092ba604eca2aa0a"
 	"fc0d8e4d164c2e2318c317db7eb37c0030514df3")
 
