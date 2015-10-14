@@ -15,7 +15,7 @@ depends=("cairo" "libjpeg" "lua" "gd" "gnutls" "readline")
 makedepends=("emacs" "texinfo" "texlive-core" "texlive-latexextra")
 provides=("gnuplot")
 conflicts=("gnuplot" "gnuplot-nox")
-options=("!makeflags")
+options=(!makeflags)
 install="$_pkgname.install"
 source=("http://downloads.sourceforge.net/sourceforge/$_pkgname/$_pkgname-$pkgver.tar.gz"
 	"lua53_compat.patch")
