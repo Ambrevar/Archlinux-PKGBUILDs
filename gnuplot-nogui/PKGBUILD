@@ -4,7 +4,7 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 _pkgname=gnuplot
-pkgname=$_pkgname-notk
+pkgname=$_pkgname-nogui
 pkgver=5.0.0
 pkgrel=4
 pkgdesc="Plotting package which outputs to X11, files and others. Without wxgtk/qt."
@@ -15,6 +15,7 @@ depends=("cairo" "libjpeg" "lua" "gd" "gnutls" "readline")
 makedepends=("emacs" "texinfo" "texlive-core" "texlive-latexextra")
 provides=("gnuplot")
 conflicts=("gnuplot" "gnuplot-nox")
+replaces=("gnuplot-notk")
 options=(!makeflags)
 install="$_pkgname.install"
 source=("http://downloads.sourceforge.net/sourceforge/$_pkgname/$_pkgname-$pkgver.tar.gz"
