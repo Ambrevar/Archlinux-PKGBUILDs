@@ -20,6 +20,10 @@ for i; do
 	fi
 	cd "$pkg"
 	mksrcinfo || continue
+	if [ "$(git diff --numstat .SRCINFO | cut -f1)" == "1" ] && [ "$(git diff --numstat .SRCINFO | cut -f2)" == "1" ]; then
+		## Only 1 unrequired diff, the date bump.
+		git checkout .SRCINFO
+	fi
 	if [ -n "$(git status --porcelain .)" ]; then
 		echo >&2 "$pkg has staged changes."
 		cd ..
