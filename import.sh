@@ -6,7 +6,7 @@
 if [ -z "$1" ]; then
 	echo >&2 "Provide a PKGBUILD name."
 	exit
-fi	
+fi
 
 export name="$1"
 source="$HOME/projects/archlinux-pkgbuilds-archive"
@@ -26,7 +26,7 @@ cd "$name"
 ## WARNING: We assume there is no hidden files and no folders to copy.
 cp "$source"/"$name"/* .
 [ $? -ne 0 ] && exit
-mksrcinfo
+makepkg --printsrcinfo > .SRCINFO
 [ $? -ne 0 ] && exit
 git add * .SRCINFO
 git commit -a -m 'Init'

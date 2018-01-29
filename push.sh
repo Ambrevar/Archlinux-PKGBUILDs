@@ -7,7 +7,7 @@ Usage: ${0##*/} PACKAGES...
 Make sure .SRCINFO is up to date and push PACKAGES to the AUR.
 EOF
 	exit
-fi	
+fi
 
 for i; do
 	pkg="${i%/}"
@@ -19,7 +19,7 @@ for i; do
 		continue
 	fi
 	cd "$pkg"
-	mksrcinfo || continue
+	makepkg --printsrcinfo > .SRCINFO || continue
 	if [ "$(git diff --numstat .SRCINFO | cut -f1)" == "1" ] && [ "$(git diff --numstat .SRCINFO | cut -f2)" == "1" ]; then
 		## Only 1 unrequired diff, the date bump.
 		git checkout .SRCINFO
