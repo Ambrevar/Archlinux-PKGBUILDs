@@ -3,7 +3,7 @@
 Each PKGBUILD is stored as a git subtree. This makes it possible to have all
 PKGBUILDs in one repository while synchronizing them independently with the AUR.
 
-To add a PKGBUILD from an existing reposity (AUR >= 4):
+To add a PKGBUILD from an existing repository (AUR >= 4):
 
 	git subtree add -P ${name} ssh://aur@aur.archlinux.org/${name}.git master
 
